@@ -1,0 +1,12 @@
+from typing import List
+
+class Solution:
+    def timeRequiredToBuy(self, tickets: List[int], k: int) -> int:
+        target = tickets[k]
+        total_time = 0
+        for i, t in enumerate(tickets):
+            if i <= k:
+                total_time += min(t, target)
+            else:
+                total_time += min(t, target - 1)
+        return total_time
