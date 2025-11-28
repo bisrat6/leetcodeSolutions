@@ -1,24 +1,28 @@
 from typing import List
-
+import math
 class Solution:
     def evalRPN(self, tokens: List[str]) -> int:
-        stack = []
-        
-        for t in tokens:
-            if t in {"+", "-", "*", "/"}:
-                b = stack.pop()
-                a = stack.pop()
-                if t == "+":
-                    stack.append(a + b)
-                elif t == "-":
-                    stack.append(a - b)
-                elif t == "*":
-                    stack.append(a * b)
-                elif t == "/":
-                    # Python division truncates toward zero for int using int() after true division
-                    stack.append(int(a / b))
-            else:
-                # Operand
-                stack.append(int(t))
-        
-        return stack[0]
+        def operation(a:int,b:int,token:str)->int:
+            match token:
+                case '+':
+                    return a+b
+                case '-':
+                    return a-b
+                case '*':
+                    return a*b
+                case '/':
+                    temp=a/b
+                    return math.floor(temp) if temp>=0 else math.ceil(temp)
+
+        stack=[]
+        for i in tokens:
+            try:
+                stack.append(int(i))
+            except:
+                a=stack.pop()
+                b=stack.pop()
+                stack.append(operation(b,a,i))
+        return stack.pop()
+
+
+#0,17
