@@ -15,13 +15,8 @@ class Solution:
             stack.pop()
         elif temp and (temp!='.' and temp!='..'): 
             stack.append(temp)
-        path=''
-        stack2=[]
-        while stack:
-            stack2.append('/'+stack.pop())
-        while stack2:
-            path+=stack2.pop()
-        return path or '/'
+        return "/" + "/".join(stack)
+
             
 #home,foo
 
